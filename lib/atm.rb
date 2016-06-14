@@ -6,15 +6,29 @@ class Atm
     @funds = 1000
   end
 
-# Withdrawal
+# Withdrawal of funds
 def withdraw(amount, account)
-  case # check if there is enough funds
-  when amount > account.balance then # exit method if amount to withdral is biiger than the balance
+  # check if there is enough funds
+  case
+  # exit method if amount to withdral is biiger than the balance
+when insufficient_funds_in_account?(account.balance) then
     return
-  else # If not biger, transaction is performed and deduct the amount
+  # If not biger, transaction is performed and deduct the amount
+  else
+    perform_transaction(amount, account)
+  end
+end
+
+private
+
+def perform_transaction?(amount, account)
+  amount > account.balance
+end
+
+# deduct amounts from atm
+def perform_transaction(amount, account)
     @funds -= amount
     account.balance = account.balance - amount # deducting amount from balance
-    { status: true, message: 'success', date: Date.today, amount: amount } #response for successful Withdraw  al
-  end
+    { status: true, message: 'success', date: Date.today, amount: amount } #response for successful Withdrawal
   end
 end
