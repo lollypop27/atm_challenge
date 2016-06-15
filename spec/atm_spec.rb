@@ -52,4 +52,11 @@ it 'reject withdraw if card is expired' do
   expected_output = { status: false, message: 'card expired', date: Date.today }
   expect(subject.withdraw(6, '1234', account)).to eq expected_output
 end
+
+# Check to see if account is active or not
+it 'reject withdraw if account is disabled' do
+  allow(account).to receive(:account_status).and_return(:disbaled)
+  expected_output = { status: false, message: 'account disabled', date: Date.today }
+  expect(subject.withdraw(5, '1234', account)).to eq expected_output
+end
 end
