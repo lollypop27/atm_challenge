@@ -2,7 +2,7 @@ require './lib/atm.rb'
 
 # adding double class to manage account and card
 describe ATM do
-  let(:account) { class_double('Account', pin_code: '1234', exp_date: '04/17') }
+  let(:account) { class_double('Account', pin_code: '1234', exp_date: '04/17', account_status) }
 
 # set value of balance and get a new balance
 before do
