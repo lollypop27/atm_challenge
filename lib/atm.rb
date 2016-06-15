@@ -14,7 +14,9 @@ def withdraw(amount, pin_code, account)
   when insufficient_funds_in_atm(amount) then
     { status: false, message: 'insufficient funds in ATM', date: Date.today }
   when incorrect_pin?(pin_code, account.pin_code) then
-  { status: false, message: 'wrong pin', date: Date.today }
+    { status: false, message: 'wrong pin', date: Date.today }
+  when card_expired?(account.exp_date) then
+    { status: false, message: 'card expired', date: Date.today }
   else
     perform_transaction(amount, account)
   end
@@ -41,5 +43,9 @@ end
 # Incorrect pin
 def incorrect_pin?(pin_code, actual_pin)
  pin_code != actual_pin
+end
+# If card has expired
+def card_expired?(exp_date)
+  Date.strptime(exp_date, '%m/%y') < Date.today
 end
 end
