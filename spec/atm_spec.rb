@@ -2,7 +2,7 @@ require './lib/atm.rb'
 
 # adding double class to manage account and card
 describe ATM do
-  let(:account) { class_double('Account') }
+  let(:account) { class_double('Account', pin_code: '1234') }
 
 # set value of balance and get a new balance
 before do
@@ -17,7 +17,7 @@ end
 
 # Withdrawal function
 it 'funds are reduced at withdraw' do
-  subject.withdraw(50, account)
+  subject.withdraw(50, '1234', account)
   expect(subject.funds).to eq 950
 end
 
