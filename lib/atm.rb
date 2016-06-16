@@ -12,15 +12,14 @@ class ATM
   def withdraw(amount, account)
     case
     when insufficient_funds_in_account?(amount, account) then
-
-      return
+      { status: true, message: 'insufficient funds', date: Date.today }
     else
       perform_transaction(amount, account)
     end
   end
 
   private
-  # checcking enough funds
+  # checking enough funds
   def insufficient_funds_in_account?(amount, account)
     amount > account.balance
   end
