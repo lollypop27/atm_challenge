@@ -8,7 +8,7 @@ class Atm
     @funds = 1000
   end
 
-  # funds deduct on withdraw
+  # funds deducted on withdraw
   def withdraw(amount)
     @funds -= amount
   end

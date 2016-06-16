@@ -15,7 +15,7 @@ require './lib/atm.rb'
     expect(subject.funds).to eq 950
   end
 
-  # balnce reduced after withdraw
+  # balance reduced after withdraw
   before do
     allow(account).to receive(:balance).and_return(100)
     allow(account).to receive(:balance=)
