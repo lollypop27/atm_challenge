@@ -23,8 +23,8 @@ end
 
 # checking the account to see if there is enough money and amounts drawn are corrects
 it 'allow withdraw if account has enough balance.' do
-  { status: true, message: 'success', date: Date.today, amount: 45, bills: [10,10,20,5] }
-  expect(subject.withdraw(45, account)).to eq expected_output
+  { status: true, message: 'success', date: Date.today, amount: 35, bills: [20,10,5] }
+  expect(subject.withdraw(35, account)).to eq expected_output
 end
 
 # If not enough funds in account
