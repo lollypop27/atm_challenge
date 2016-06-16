@@ -1,8 +1,9 @@
 
 require './lib/atm.rb'
+require 'date'
 
 describe ATM do
-  let(:account) { class_double('Account', pin_code: '1234') } #used for both the bank account and card class
+  let(:account) { class_double('Account', pin_code: '1234', exp_date: '04/17', account_status: :active) } #used for both the bank account and card class
 
     # ATM funds added
     it 'has 1000$ on intitialize' do
@@ -23,7 +24,6 @@ describe ATM do
 
     # checking if there is enough funds in account
     it 'allow withdraw if account has enough balance.' do
-      require 'date'
       expected_output = { status: true, message: 'success', date: Date.today, amount: 45 }
       expect(subject.withdraw(45, '1234', account)).to eq expected_output
     end
@@ -37,7 +37,6 @@ describe ATM do
     # checking enough funds in ATM
     it 'reject withdraw if ATM has insufficient funds' do
       subject.funds = 50 # decrease the funds value
-      require 'date'
       expected_output = { status: false, message: 'insufficient funds in ATM', date: Date.today }
       expect(subject.withdraw(100, '1234', account)).to eq expected_output # prepare our assertion/expectation
   end
@@ -48,5 +47,18 @@ describe ATM do
     expect(subject.withdraw(50, 9999, account)).to eq expected_output
   end
 
-  # 
+  # Checking to see if Card has expired
+  it 'reject withdraw if card is expired' do
+    allow(account).to receive(:exp_date).and_return('01/16')
+    expected_output = { status: false, message: 'card expired', date: Date.today }
+    expect(subject.withdraw(6, '1234', account)).to eq expected_output
+  end
+
+  # checking of account is active or not
+  it 'reject withdraw if account is disabled' do
+    allow(account).to receive(:account_status).and_return (:disabled)
+    expected_output = { status: false, message: 'account disabled', date: Date.today }
+    expect(subject.withdraw(5, '1234', account)).to eq expected_output
+  end
+
 end

@@ -20,6 +20,12 @@ class ATM
     # checking PIN code
     when incorrect_pin?(pin_code, account.pin_code) then
       { status: false, message: 'wrong pin', date: Date.today }
+    # Checking if Card is expired
+    when card_expired?(account.exp_date) then
+      { status: false, message: 'card expired', date: Date.today }
+    # checking of account is active or not
+    when account_status?(account.disabled) then
+      { status: false, message: 'account disabled', date: Date.today }
     else
       perform_transaction(amount, account)
     end
@@ -49,6 +55,15 @@ class ATM
     pin_code != actual_pin
   end
 
+  # Checking if Card is expired
+  def card_expired?(exp_date)
+    Date.strptime(exp_date, '%m/%y') < Date.today
+  end
+
+  # checking of account is active or not
+  def account_disabled?(account_status)
+    account_status != active
+  end
 
 
 end
