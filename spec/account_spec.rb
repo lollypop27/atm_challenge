@@ -8,4 +8,10 @@ describe Account do
       expect(pin_length).to eq 4
     end
 
+    # have balance
+    it 'is expected to have a balance of 0 on initialize' do
+      expect(subject.balance).to eq 0
+    end
+
+
 end
