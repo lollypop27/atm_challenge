@@ -42,7 +42,7 @@ class ATM
     @funds -= amount # funds deducted on withdrawal from ATM
     account.balance -= amount # deducts the amount from users balance
     require 'date'
-    { status: true, message: 'success', date: Date.today, amount: amount } # success response on withdraw
+    { status: true, message: 'success', date: Date.today, amount: amount, bills: add_bills(amount) } # success response on withdraw
   end
 
   # Checking enough funds in ATM
@@ -65,6 +65,17 @@ class ATM
     account_status != :active
   end
 
-
+  # adding bills
+  def add_bills(amount)
+    denominations = [20, 10, 5]
+    bills = []
+    denominations.each do |bill|
+      while amount - bill >= 0
+        amount -= bill
+        bills << bill
+      end
+    end
+    bills
+  end
 
 end
