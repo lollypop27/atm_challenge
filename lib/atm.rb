@@ -24,7 +24,7 @@ class ATM
     when card_expired?(account.exp_date) then
       { status: false, message: 'card expired', date: Date.today }
     # checking of account is active or not
-    when account_status?(account.disabled) then
+  when account_disabled?(account.account_status) then
       { status: false, message: 'account disabled', date: Date.today }
     else
       perform_transaction(amount, account)
@@ -62,7 +62,7 @@ class ATM
 
   # checking of account is active or not
   def account_disabled?(account_status)
-    account_status != active
+    account_status != :active
   end
 
 
