@@ -5,7 +5,7 @@ describe Person do
   subject { described_class.new(name: 'Lara')}
 
   it 'is expected to have a :name on initialize' do
-    expect(subject.name).not_to_be nil
+    expect(subject.name).not_to be nil
   end
 
   it 'is expected to raise error if no name is set' do
