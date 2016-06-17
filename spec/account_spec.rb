@@ -13,5 +13,14 @@ describe Account do
       expect(subject.balance).to eq 0
     end
 
+    # Atm Check the account balance
+    it 'is expected to have :active status on initialize' do
+      expect(subject.account_status).to eq :active
+    end
+
+    it 'deactivates account using Class method' do
+      Account.deactivate(subject)
+      expect(subject.account_status).to eq :deactivated
+    end
 
 end
