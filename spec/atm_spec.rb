@@ -4,7 +4,7 @@ require 'date'
 
 describe ATM do
   let(:account) { class_double('Account',
-                                balance:100,
+                                balance:250,
                                 pin_code: '1234',
                                 exp_date: '04/17',
                                 account_status: :active) } #used for both the bank account and card class
